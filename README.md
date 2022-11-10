@@ -1,2 +1,3 @@
-# rest_api_spring
-mroe homework
+# SPRINT BOOT REST API
+
+Doing java, because homework.
