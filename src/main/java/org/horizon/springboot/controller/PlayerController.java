@@ -19,7 +19,7 @@ import org.horizon.springboot.repository.PlayerRepository;
 
 @RestController
 @RequestMapping("/api/players")
-public class UserController {
+public class PlayerController {
 
 	@Autowired
 	private PlayerRepository playerRepository;

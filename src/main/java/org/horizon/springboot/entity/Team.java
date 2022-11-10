@@ -1,36 +1,39 @@
 package org.horizon.springboot.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.horizon.springboot.entity.Player;
+
+import javax.persistence.OneToMany;
+
 @Entity
-@Table(name = "players")
-public class Player {
+@Table(name = "teams")
+public class Team {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@Column(name = "name_player")
+	@Column(name = "name_team")
 	private String name;
 
-	@Column(name = "age_player")
-	private Integer age;
+	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Set<Player> players;
 
-	@ManyToOne
-	@JoinColumn(name = "team_id", nullable = false)
-	private Team team;
-
-	public Player(String name, Integer age) {
+	public Team(String name, Integer age) {
 		super();
 		this.name = name;
-		this.age = age;
 	}
 
 	public long getId() {
@@ -47,13 +50,5 @@ public class Player {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
 	}
 }
