@@ -12,7 +12,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.horizon.springboot.entity.Player;
 
 import javax.persistence.OneToMany;
 
