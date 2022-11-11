@@ -25,36 +25,36 @@ public class PlayerController {
 	private PlayerRepository playerRepository;
 
 	@GetMapping
-	public List<Player> getAllUsers() {
+	public List<Player> getAllPlayers() {
 		return this.playerRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Player getUserById(@PathVariable(value = "id") long userId) {
-		return this.playerRepository.findById(userId)
-				.orElseThrow(() -> new ResourceNotFoundException("Player not found with id :" + userId));
+	public Player getPlayerById(@PathVariable(value = "id") long playerId) {
+		return this.playerRepository.findById(playerId)
+				.orElseThrow(() -> new ResourceNotFoundException("Player not found with id :" + playerId));
 	}
 
 	@PostMapping
-	public Player createUser(@RequestBody Player user) {
-		return this.playerRepository.save(user);
+	public Player createPlayer(@RequestBody Player player) {
+		return this.playerRepository.save(player);
 	}
 
 	@PutMapping("/{id}")
-	public Player updateUser(@RequestBody Player user, @PathVariable("id") long userId) {
-		Player existingPlayer = this.playerRepository.findById(userId)
+	public Player updatePlayer(@RequestBody Player player, @PathVariable("id") long playerId) {
+		Player existingPlayer = this.playerRepository.findById(playerId)
 				.orElseThrow(() -> new ResourceNotFoundException(
-						String.format("Player not found with id : <: %s :>", userId)));
-		existingPlayer.setName(user.getName());
-		existingPlayer.setAge(user.getAge());
+						String.format("Player not found with id : <: %s :>", playerId)));
+		existingPlayer.setName(player.getName());
+		existingPlayer.setAge(player.getAge());
 		return this.playerRepository.save(existingPlayer);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Player> deleteUser(@PathVariable("id") long userId) {
-		Player existingPlayer = this.playerRepository.findById(userId)
+	public ResponseEntity<Player> deletePlayer(@PathVariable("id") long playerId) {
+		Player existingPlayer = this.playerRepository.findById(playerId)
 				.orElseThrow(() -> new ResourceNotFoundException(
-						String.format("Player not found with id : <: %s :>", userId)));
+						String.format("Player not found with id : <: %s :>", playerId)));
 		this.playerRepository.delete(existingPlayer);
 		return ResponseEntity.ok().build();
 	}
