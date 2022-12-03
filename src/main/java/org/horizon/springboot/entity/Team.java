@@ -2,6 +2,7 @@ package org.horizon.springboot.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,11 +27,13 @@ public class Team {
 	@Column(name = "name_team")
 	private String name;
 
-	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Player> players;
 
-	public Team(String name, Integer age) {
+	public Team() {
+	}
+
+	public Team(String name) {
 		super();
 		this.name = name;
 	}

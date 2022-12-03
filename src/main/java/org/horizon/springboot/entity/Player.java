@@ -2,6 +2,7 @@ package org.horizon.springboot.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,14 +24,18 @@ public class Player {
 	@Column(name = "age_player")
 	private Integer age;
 
-	@ManyToOne
-	@JoinColumn(name = "team_id", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "team_id", nullable = true, insertable = true, updatable = true)
 	private Team team;
 
-	public Player(String name, Integer age) {
+	public Player() {
+	}
+
+	public Player(String name, Integer age, Team team) {
 		super();
 		this.name = name;
 		this.age = age;
+		this.team = team;
 	}
 
 	public long getId() {
@@ -55,5 +60,13 @@ public class Player {
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 }
